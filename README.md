@@ -20,20 +20,16 @@ A RESTful API built with Elysia.js, Bun, and Prisma for user authentication and 
 
 1. Clone the repository
 2. Create a `.env` file based on `.env.example` and configure your environment variables
-3. Install dependencies:
-   ```bash
+3. ```bash
    bun install
    ```
-4. Set up the database:
-   ```bash
+4. ```bash
    bun run db:migrate
    ```
-5. Generate Prisma client:
-   ```bash
+5. ```bash
    bun run db:generate
    ```
-6. Start the development server:
-   ```bash
+6. ```bash
    bun run dev
    ```
 
@@ -74,6 +70,11 @@ Once the server is running, visit `/swagger` to view the complete API documentat
 #### Profile Management
 - GET `/profile` - Get user profile
 - PUT `/profile` - Update user profile
+
+## Security Features
+
+- Password hashing using Bun's crypto(argon2) functions
+- JWT-based authentication
  
 ## Development
 
