@@ -71,10 +71,10 @@ Once the server is running, visit `/swagger` to view the complete API documentat
 - GET `/profile` - Get user profile
 - PUT `/profile` - Update user profile
 
-## Security Features
+## Security Features  
 
-- Password hashing using Bun's crypto(argon2) functions
-- JWT-based authentication
+- Password hashing using Bun's crypto (**argon2**) functions  
+- JWT-based authentication  
  
 ## Development
 
