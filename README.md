@@ -65,6 +65,7 @@ Once the server is running, visit `/swagger` to view the complete API documentat
 ### API Endpoints
 
 #### Authentication
+[Documentation link](https://localhost:3000/swagger) 
 - POST `/auth/register` - Register a new user
 - POST `/auth/login` - User login
 - POST `/auth/reset-password` - Request password reset
