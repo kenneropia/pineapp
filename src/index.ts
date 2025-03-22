@@ -25,9 +25,8 @@ const app = new Elysia()
       },
     })
   )
-
-  .use(profileRoutes)
   .use(authRoutes)
+  .use(profileRoutes)
 
   .listen(process.env.PORT || 3000);
 
