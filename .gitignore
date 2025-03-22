@@ -32,9 +32,7 @@ yarn-error.log*
 
 # Testing
 coverage/
-
-# Bun
-bun.lockb
+ 
 
 # Misc
 .DS_Store
