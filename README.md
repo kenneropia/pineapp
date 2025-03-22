@@ -74,17 +74,10 @@ Once the server is running, visit `/swagger` to view the complete API documentat
 #### Profile Management
 - GET `/profile` - Get user profile
 - PUT `/profile` - Update user profile
-
-## Security Features
-
-- Password hashing using Bun's crypto functions
-- JWT-based authentication
-- OTP verification for password reset
-- Secure session management
-
+ 
 ## Development
 
 ```bash
-# Run in development mode with hot reload
+# Run in development mode
 bun dev
 ```
