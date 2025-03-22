@@ -10,7 +10,8 @@
     "build": "bun build src/index.ts",
     "db:migrate": "bunx prisma migrate dev",
     "db:generate": "bunx prisma generate",
-    "db:studio": "bunx prisma studio"
+    "db:studio": "bunx prisma studio",
+    "postinstall": "prisma generate"
   },
   "dependencies": {
     "@elysiajs/cookie": "^0.7.0",
