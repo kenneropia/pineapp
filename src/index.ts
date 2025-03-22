@@ -1,23 +1,36 @@
-import { Elysia } from "elysia";
+import { Elysia, t } from "elysia";
 import { swagger } from "@elysiajs/swagger";
-import { jwt } from "@elysiajs/jwt";
-import { cookie } from "@elysiajs/cookie";
 import { PrismaClient } from "@prisma/client";
-import { jwtConfig } from "./config/jwt";
-import { authRoutes } from "./routes/auth";
-import { profileRoutes } from "./routes/profile";
+import profileRoutes from "./routes/profile";
 
 const prisma = new PrismaClient();
 
+import authMiddleware from "./middleware/auth";
+import authRoutes from "./routes/auth";
+
 const app = new Elysia()
-  .use(swagger())
-  .use(jwt(jwtConfig))
-  .use(cookie())
-  .decorate("db", prisma)
-  .use(authRoutes)
+  .use(
+    swagger({
+      swaggerOptions: { persistAuthorization: true },
+      documentation: {
+        components: {
+          securitySchemes: {
+            bearerAuth: {
+              type: "http",
+              scheme: "bearer",
+              bearerFormat: "JWT",
+            },
+          },
+        },
+      },
+    })
+  )
+
   .use(profileRoutes)
-  .listen(3000);
+  .use(authRoutes)
+
+  .listen(process.env.PORT || 3000);
 
 console.log(
-  `🦊 Elysia is running at ${app.server?.hostname}:${app.server?.port}`
+  `🦊 Elysia is running at ${app.server?.hostname}:${app.server?.port}\n📚 API Documentation available at ${app.server?.hostname}:${app.server?.port}/swagger`
 );

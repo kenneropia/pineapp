@@ -1,4 +1,4 @@
 export const jwtConfig = {
-  name: "jwt",
-  secret: "your-secret-key",
+  name: process.env.JWT_NAME || "jwt",
+  secret: process.env.JWT_SECRET || "your-secret-key",
 };

@@ -1,45 +1,44 @@
 import { Elysia, t } from "elysia";
-import { authMiddleware } from "../middleware/auth";
-
 import { PrismaClient } from "@prisma/client";
+import { jwt } from "@elysiajs/jwt";
+import { jwtConfig } from "../config/jwt";
+import authMiddleware from "../middleware/auth";
 
-type RouteContext = {
-  jwt: {
-    sign(payload: JWTPayload): Promise<string>;
-    verify(token: string): Promise<JWTPayload | null>;
-  };
-  db: PrismaClient;
-  headers: {
-    authorization: string;
-  };
-  body?: {
-    name?: string;
-    bio?: string;
-    avatar?: string;
-  };
-};
+const prisma = new PrismaClient();
 
-export const profileRoutes = new Elysia()
+const profileRoutes = new Elysia()
   .use(authMiddleware)
-  .get("/profile", async ({ db, headers }: RouteContext) => {
-    const payload = await authMiddleware.handle({ headers });
-    if (typeof payload === "string") return payload;
+  .use(jwt(jwtConfig))
+  .decorate("db", prisma)
+  .get(
+    "/profile",
+    async ({ db, headers, auth }) => {
+      const payload = await auth();
+      if (typeof payload === "string") return payload;
 
-    return db.user.findUnique({
-      where: { id: Number(payload.id) },
-      select: {
-        id: true,
-        email: true,
-        name: true,
-        bio: true,
-        avatar: true,
+      return db.user.findUnique({
+        where: { id: Number(payload.id) },
+        select: {
+          id: true,
+          email: true,
+          name: true,
+          bio: true,
+          avatar: true,
+        },
+      });
+    },
+    {
+      detail: {
+        summary: "Get user profile",
+        description: "Retrieve authenticated user profile information",
+        security: [{ bearerAuth: [] }],
       },
-    });
-  })
+    }
+  )
   .put(
     "/profile",
-    async ({ body, db, headers }: RouteContext) => {
-      const payload = await authMiddleware.handle({ headers });
+    async ({ body, db, auth }) => {
+      const payload = await auth();
       if (typeof payload === "string") return payload;
 
       return db.user.update({
@@ -60,5 +59,12 @@ export const profileRoutes = new Elysia()
         bio: t.Optional(t.String()),
         avatar: t.Optional(t.String()),
       }),
+      detail: {
+        summary: "Update user profile",
+        description: "Update authenticated user profile information",
+        security: [{ bearerAuth: [] }],
+      },
     }
   );
+
+export default profileRoutes;
