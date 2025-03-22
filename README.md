@@ -6,7 +6,7 @@ A RESTful API built with Elysia.js, Bun, and Prisma for user authentication and 
 
 - User Registration (Sign-Up)
 - User Authentication (Sign-In)
-- Password Reset with OTP Verification
+- Password Reset with OTP Verification(Fixed dummy OTP: 123456)
 - Profile Management (Retrieve and Update)
 - JWT-based Authentication
 - API Documentation with Swagger
