@@ -1,0 +1,21 @@
+{
+  "name": "pineapp",
+  "version": "1.0.0",
+  "module": "src/index.ts",
+  "type": "module",
+  "scripts": {
+    "dev": "bun run --watch src/index.ts",
+    "start": "bun run src/index.ts"
+  },
+  "dependencies": {
+    "@elysiajs/cookie": "^0.7.0",
+    "@elysiajs/jwt": "^0.7.0",
+    "@elysiajs/swagger": "^0.7.3",
+    "@prisma/client": "^5.3.1",
+    "elysia": "^0.7.17",
+    "prisma": "^5.3.1"
+  },
+  "devDependencies": {
+    "bun-types": "latest"
+  }
+}
